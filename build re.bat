@@ -1,14 +1,21 @@
-set "GOOS"="windows"
-set "GOARCH"="amd64"
-go build -o "e1.exe" "main.go"
-set "GOOS"="windows"
-set "GOARCH"="amd64p32"
-go build -o "e2.exe" "main.go"
-set "GOOS"="windows"
-set "GOARCH"="386"
-go build -o "e3.exe" "main.go"
-set "GOOS"="windows"
-set "GOARCH"="arm"
-go build -o "e4.exe" "main.go"
-go run "main.go"
+set Name=Game
+set MainFile="./"
+set GOOS=windows
+set GOARCH=amd64
+go-winres make --in="./WinDataRes/WindowsDataRes.json" --out="rsrc_%Name%" -arch=%GOARCH%
+go build -o="./cmd/%Name% %GOOS% %GOARCH%.exe" -ldflags="-H=windowsgui -v" %MainFile%
 pause
+set GOOS=windows
+set GOARCH=arm
+go-winres make --in="./WinDataRes/WindowsDataRes.json" --out="rsrc_%Name%" -arch=%GOARCH%
+go build -o="./cmd/%Name% %GOOS% %GOARCH%.exe" -ldflags="-H=windowsgui -v" %MainFile%
+set GOOS=windows
+set GOARCH=386
+go-winres make --in="./WinDataRes/WindowsDataRes.json" --out="rsrc_%Name%" -arch=%GOARCH%
+go build -o="./cmd/%Name% %GOOS% %GOARCH%.exe" -ldflags="-H=windowsgui -v" %MainFile%
+set GOOS=windows
+set GOARCH=amd64p32
+go-winres make --in="./WinDataRes/WindowsDataRes.json" --out="rsrc_%Name%" -arch=%GOARCH%
+go build -o="./cmd/%Name% %GOOS% %GOARCH%.exe" -ldflags="-H=windowsgui -v" %MainFile%
+pause
+
